@@ -4,8 +4,9 @@ Nurb::Process Module
 
 The specs listed below are implemented, but the tests are not yet written.
 
-- Process::on(filename, [options], &block)
-  + [SKIPPED] Polls `filename` for changes then calls `block` with the current and previous stat objects
+- Process::on(signal, &block)
+  + [SKIPPED] Registers a handler for the given signal
+  + [SKIPPED] `signal` may be a Fixnum, String, or Symbol, matching one of the UV::SIG* constants)
 
 
-SUCCESS [0 failed, 1 skipped, 1 total]
+SUCCESS [0 failed, 2 skipped, 2 total]
