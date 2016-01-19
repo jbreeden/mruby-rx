@@ -1,53 +1,68 @@
 module Nurb
-  @timers = {}
-  @next_timer = 1
+  # Timer Types
+  # -----------
+  
+  class Immediate
+    include Handle
+    
+    def initialize(&block)
+      raise ArgumentError.new("Block required") unless block_given?
+      @handle = UV::UvIdleT.new
+      UV.uv_idle_init(Nurb.main_loop, @handle)
+      UV.uv_idle_start(@handle) do
+        self.close
+        block[]
+      end
+    end
+  end
+  
+  class Timeout
+    include Handle
+
+    def initialize(delay, &block)
+      raise ArgumentError.new("Block required") unless block_given?
+      @handle = UV::UvTimerT.new
+      UV.uv_timer_init(Nurb.main_loop, @handle)
+      UV.uv_timer_start(@handle, delay, 1) do
+        self.close
+        block[]
+      end
+    end
+  end
+  
+  class Interval
+    include Handle
+
+    def initialize(interval, &block)
+      raise ArgumentError.new("Block required") unless block_given?
+      @handle = UV::UvTimerT.new
+      UV.uv_timer_init(Nurb.main_loop, @handle)
+      UV.uv_timer_start(@handle, interval, interval) do
+        block[]
+      end
+    end
+  end
+  
+  # Public API
+  # ----------
   
   def self.set_timeout(delay, &block)
-    raise ArgumentError.new("Block required") unless block_given?
-    timer = UV::UvTimerT.new
-    UV.uv_timer_init(main_loop, timer)
-
-    td = @next_timer    
-    @timers[td] = timer
-    @next_timer += 1
-    
-    UV.uv_timer_start(timer, delay, 0) do
-      Nurb.clear_timeout(td)
-      block[]
-    end
-    
-    return td
+    Timeout.new(delay, &block)
   end
   
   def self.set_interval(interval, &block)
-    raise ArgumentError.new("Block required") unless block_given?
-    timer = UV::UvTimerT.new
-    UV.uv_timer_init(main_loop, timer)
-    
-    td = @next_timer
-    @timers[td] = timer
-    @next_timer += 1
-    
-    UV.uv_timer_start(timer, interval, interval, &block)
-    
-    return td
+    Interval.new(interval, &block)
   end
   
-  def self.next_tick(&block)
-    raise ArgumentError.new("Block required") unless block_given?
-    idle = UV::UvIdleT.new
-    UV.uv_idle_init(main_loop, idle)
-    UV.uv_idle_start(idle) do
-      UV.uv_idle_stop(idle)
-      block[]
-    end
+  def self.set_immediate(&block)
+    Immediate.new(&block)
+  end
+  class << self
+    alias next_tick set_immediate
   end
   
-  def self.clear_timeout(td)
-    timer = @timers.delete(td)
-    if timer
-      UV.uv_timer_stop(timer)
-    end
+  def self.clear_timeout(timeout)
+    timeout.close
   end
   class << self
     alias clear_interval clear_timeout

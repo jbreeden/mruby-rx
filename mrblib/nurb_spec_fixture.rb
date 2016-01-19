@@ -24,13 +24,17 @@ class Nurb::Spec
     if lines.empty?
       puts
     else
-      # Ensure all lines are separate
-      lines = lines.map { |l| l.split("\n") }.flatten
+      lines.each { |l| l.gsub!("\n", "\n#{ ' ' * (@indentation * 2)}") }
       lines.each do |l|
         print (' ' * (@indentation * 2)) unless l.empty?
         puts l
       end
     end
+  end
+  
+  def blurb(text)
+    write text
+    puts
   end
 
   def indent(&block)
@@ -66,6 +70,7 @@ class Nurb::Spec
     write "#{bullet} #{label}"
     indent do
       self.instance_eval(&block)
+      write ''
     end
   end
   alias desc describe
@@ -98,7 +103,7 @@ class Nurb::Spec
     @pending_count += 1 if @current_test_pending
 
     if exc && !@current_test_pending
-      write "Uncaught #{exc.class.to_s}: #{exc}\n#{exc.backtrace.join("\n")}"
+      write "\nUncaught #{exc.class.to_s}: #{exc}\n#{exc.backtrace.join("\n")}\n\n"
     end
   end
   alias test it
