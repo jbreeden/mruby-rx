@@ -82,7 +82,11 @@ class Nurb::Spec
     exc = nil
     
     begin
-      self.instance_eval(&block) if block
+      if block
+        self.instance_eval(&block)
+      else
+        skip
+      end
     rescue SkipTest => ex
       @current_test_pending = true
     rescue StandardError => ex
@@ -92,7 +96,7 @@ class Nurb::Spec
     
     tag = ""
     if @current_test_pending
-      tag = "[PENDING] "
+      tag = "[SKIPPED] "
     elsif !@current_test_passed
       tag = "[FAILED] "
     end
@@ -128,12 +132,13 @@ class Nurb::Spec
     @current_test_passed = false
   end
 
-  def pending
+  def skip
     raise SkipTest.new
   end
+  alias pending skip
 
   def summarize
     write
-    write "#{@fail_count == 0 ? 'SUCCESS' : 'FAILURE' } [#{@fail_count} failed, #{@pending_count} pending, #{@test_count} total]"
+    write "#{@fail_count == 0 ? 'SUCCESS' : 'FAILURE' } [#{@fail_count} failed, #{@pending_count} skipped, #{@test_count} total]"
   end
 end

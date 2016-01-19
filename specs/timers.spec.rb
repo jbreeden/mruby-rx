@@ -1,6 +1,6 @@
 Nurb::Spec.new('Nurb Timers') do
   
-  describe 'set_timeout(delay, &block)' do
+  describe 'Kernel#set_timeout(delay, &block)' do
     it 'Runs `block` after `delay` milliseconds' do
       t1 = Time.now.to_f
       t2 = t1
@@ -13,7 +13,7 @@ Nurb::Spec.new('Nurb Timers') do
     end
   end
   
-  describe 'clear_timeout(timeout)' do
+  describe 'Kernel#clear_timeout(timeout)' do
     it 'Cancels the timeout returned by set_timeout' do
       hit = false
       Nurb.run do
@@ -26,7 +26,7 @@ Nurb::Spec.new('Nurb Timers') do
     end
   end
   
-  describe 'set_interval(delay, &block)' do
+  describe 'Kernel#set_interval(delay, &block)' do
     it 'Runs `block` after every `delay` milliseconds' do
       t1 = Time.now.to_f
       t2 = t1
@@ -42,7 +42,7 @@ Nurb::Spec.new('Nurb Timers') do
     end
   end
   
-  describe 'clear_interval(interval)'   do
+  describe 'Kernel#clear_interval(interval)'   do
     it 'Cancels the interval returned by set_interval' do
       hit = false
       Nurb.run do
@@ -55,7 +55,7 @@ Nurb::Spec.new('Nurb Timers') do
     end
   end
   
-  describe 'set_immediate(&block)' do
+  describe 'Kernel#set_immediate(&block)' do
     it 'Executes the given block' do
       hit = false
       set_immediate do
