@@ -2,10 +2,7 @@ module Nurb
 module FS
   # TODO: Should always use canonical version for path comparisons
   
-  class Watcher
-  end
-  
-  class PollingWatcher < Watcher
+  class PollingWatcher
     include EventEmitter
     
     attr_reader :listeners

@@ -36,8 +36,5 @@ Nurb::Spec.new('Nurb::FS Module') do
       end
       assert exited_peacefully
     end
-    
-    it '`options[:interval]` indicates whether the process should continue to run as long as files are being watched' do
-    end
   end
 end
