@@ -6,4 +6,8 @@ EOS
     it "Registers a handler for the given signal"
     it "`signal` may be a Fixnum, String, or Symbol, matching one of the UV::SIG* constants"
   end
+  
+  describe 'Process::execPath' do
+    it 'Returns the absolute path to the running executable'
+  end
 end

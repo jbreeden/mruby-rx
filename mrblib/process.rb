@@ -33,5 +33,9 @@ module Process
       listener[]
     end
   end
+  
+  def self.execPath
+    UV.uv_exepath
+  end
 end
 end
