@@ -25,17 +25,17 @@ module Process
   end
   
   def self.on(signal, &listener)
-    handle = UV::UvSignalT.new
+    handle = UV::Signal.new
     signal = Private.translate_signal(signal)
-    UV.uv_signal_init(Nurb.main_loop, handle)
-    UV.uv_unref(handle)
-    UV.uv_signal_start(handle, signal) do
+    UV.signal_init(Nurb.main_loop, handle)
+    UV.unref(handle)
+    UV.signal_start(handle, signal) do
       listener[]
     end
   end
   
   def self.execPath
-    UV.uv_exepath
+    UV.exepath
   end
 end
 end

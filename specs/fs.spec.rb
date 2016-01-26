@@ -5,7 +5,7 @@ Nurb::Spec.new('Nurb::FS Module') do
       Nurb.run do
         dir = Dir.tmpdir
         watch = Nurb::FS.watch_file(dir, interval: 500) do |cur, prev|
-          cb_called_correctly = cur.kind_of?(UV::UvStatT) && prev.kind_of?(UV::UvStatT)
+          cb_called_correctly = cur.kind_of?(UV::Stat) && prev.kind_of?(UV::Stat)
           watch.close
         end
         
