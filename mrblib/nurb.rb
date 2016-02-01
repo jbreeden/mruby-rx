@@ -1,11 +1,20 @@
 module Nurb
-  def self.main_loop
-    @main_loop ||= UV.default_loop
+  def self.default_loop
+    # Get a fresh loop for this mruby context
+    # (Future-proofing for multiple mrb's in one application)
+    @default_loop ||= UV::Loop.new
   end
   
   def self.run(&block)
     block[] if block_given?
-    UV.run(main_loop)
+    UV.run(default_loop)
+  end
+  class << self
+    alias start run
+  end
+  
+  def self.stop(loop = default_loop)
+    UV.close(default_loop)
   end
   
   module Handle

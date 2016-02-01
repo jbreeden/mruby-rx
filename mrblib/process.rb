@@ -8,6 +8,7 @@ module Process
       when Symbol
         [signal, signal.to_s]
       when Fixnum
+        # Short-circuit
         return signal
       else
         raise ArgumentError.new("Expected signal to be a string, symbol, or fixnum.")
@@ -20,6 +21,8 @@ module Process
         else
           raise ArgumentError.new("Unrecognized signal #{signal}")
         end
+      else
+        raise ArgumentError.new("Unrecognized signal #{signal}")
       end
     end
   end
@@ -27,7 +30,7 @@ module Process
   def self.on(signal, &listener)
     handle = UV::Signal.new
     signal = Private.translate_signal(signal)
-    UV.signal_init(Nurb.main_loop, handle)
+    UV.signal_init(Nurb.default_loop, handle)
     UV.unref(handle)
     UV.signal_start(handle, signal) do
       listener[]
