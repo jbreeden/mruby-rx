@@ -1,5 +1,6 @@
 module Nurb
 module Process
+  
   module Private
     def self.translate_signal(signal)
       as_sym, as_str = case signal
@@ -25,6 +26,10 @@ module Process
         raise ArgumentError.new("Unrecognized signal #{signal}")
       end
     end
+  end
+  
+  def self.next_tick(*args, &block)
+    Nurb.next_tick(*args, &block)
   end
   
   def self.on(signal, &listener)

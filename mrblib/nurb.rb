@@ -1,8 +1,8 @@
 module Nurb
   def self.default_loop
-    # Get a fresh loop for this mruby context
-    # (Future-proofing for multiple mrb's in one application)
-    @default_loop ||= UV::Loop.new
+    # May be set ahead of time if spawning multiple MRuby VM's
+    # with their own event loops.
+    @default_loop ||= UV.default_loop
   end
   
   def self.run(&block)

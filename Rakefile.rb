@@ -1,6 +1,6 @@
 desc 'Run the specs'
 task :specs do
-  Dir['specs/*.rb'].each do |f|
+  Dir['specs/*.spec.rb'].each do |f|
     unless system "mruby #{f}"
       raise "Error running test file: #{f}"
     end

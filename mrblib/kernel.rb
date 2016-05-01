@@ -11,10 +11,6 @@ module Kernel
     Nurb.set_immediate(*args, &block)
   end
   
-  def next_tick(*args, &block)
-    Nurb.next_tick(*args, &block)
-  end
-  
   def clear_timeout(*args, &block)
     Nurb.clear_timeout(*args, &block)
   end
