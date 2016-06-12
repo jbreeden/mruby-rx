@@ -10,8 +10,8 @@ Rx::Spec.new('Rx::FS Module') do
         end
         
         set_timeout(200) do
-          File.open("#{dir}/nurb_test.txt", 'w')
-          File.delete("#{dir}/nurb_test.txt")
+          File.open("#{dir}/rx_test.txt", 'w')
+          File.delete("#{dir}/rx_test.txt")
         end
       end
       assert cb_called_correctly
