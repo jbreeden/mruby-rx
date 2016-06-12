@@ -1,4 +1,4 @@
-Nurb.run do
+Rx.run do
   t1 = set_timeout 2000 do
     puts 'Timeout hit!'
   end

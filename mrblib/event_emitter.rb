@@ -23,7 +23,7 @@
 
 # Thanks! https://github.com/shokai/event_emitter/blob/master/lib/event_emitter/emitter.rb
 
-module Nurb
+module Rx
 module EventEmitter
   def self.included(klass)
     # klass.extend ClassMethods

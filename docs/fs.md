@@ -1,5 +1,5 @@
 
-Nurb::FS Module
+Rx::FS Module
 ---------------
 
 - FS::watchFile(filename, [options], &block)

@@ -1,5 +1,5 @@
 
-Nurb::Process Module
+Rx::Process Module
 --------------------
 
 The specs listed below are implemented, but the tests are not yet written.

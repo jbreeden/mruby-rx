@@ -1,6 +1,6 @@
 # Just-barely-usable spec framework
 
-class Nurb::Spec
+class Rx::Spec
   class SkipTest < StandardError
   end
   

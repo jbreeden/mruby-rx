@@ -1,4 +1,4 @@
-Nurb::Spec.new('Nurb Timers') do
+Rx::Spec.new('Rx Timers') do
   
   describe 'Kernel#set_timeout(delay, &block)' do
     it 'Runs `block` after `delay` milliseconds' do
@@ -7,7 +7,7 @@ Nurb::Spec.new('Nurb Timers') do
       set_timeout 500 do
         t2 = Time.now.to_f
       end
-      Nurb.run
+      Rx.run
       
       assert(t2 - t1 >= 0.5)
     end
@@ -16,7 +16,7 @@ Nurb::Spec.new('Nurb Timers') do
   describe 'Kernel#clear_timeout(timeout)' do
     it 'Cancels the timeout returned by set_timeout' do
       hit = false
-      Nurb.run do
+      Rx.run do
         t = set_timeout 100 do
           hit = true
         end
@@ -36,7 +36,7 @@ Nurb::Spec.new('Nurb Timers') do
         t2 = Time.now.to_f
         clear_interval(i) if count == 2
       end
-      Nurb.run
+      Rx.run
       
       assert(t2 - t1 >= 0.2 && count == 2)
     end
@@ -45,7 +45,7 @@ Nurb::Spec.new('Nurb Timers') do
   describe 'Kernel#clear_interval(interval)'   do
     it 'Cancels the interval returned by set_interval' do
       hit = false
-      Nurb.run do
+      Rx.run do
         t = set_interval 100 do
           hit = true
         end
@@ -62,7 +62,7 @@ Nurb::Spec.new('Nurb Timers') do
         hit = true
       end
       assert(!hit)
-      Nurb.run
+      Rx.run
       assert(hit)
     end
     
@@ -72,7 +72,7 @@ Nurb::Spec.new('Nurb Timers') do
         hit = true
       end
       assert(!hit)
-      Nurb.run
+      Rx.run
       assert(hit)
     end
     

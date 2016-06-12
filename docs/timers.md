@@ -1,5 +1,5 @@
 
-Nurb Timers
+Rx Timers
 -----------
 
 - Kernel#set_timeout(delay, &block)

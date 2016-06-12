@@ -1,4 +1,4 @@
-module Nurb
+module Rx
   def self.default_loop
     # May be set ahead of time if spawning multiple MRuby VM's
     # with their own event loops.

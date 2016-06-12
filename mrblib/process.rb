@@ -1,4 +1,4 @@
-module Nurb
+module Rx
 module Process
   
   module Private
@@ -29,13 +29,13 @@ module Process
   end
   
   def self.next_tick(*args, &block)
-    Nurb.next_tick(*args, &block)
+    Rx.next_tick(*args, &block)
   end
   
   def self.on(signal, &listener)
     handle = UV::Signal.new
     signal = Private.translate_signal(signal)
-    UV.signal_init(Nurb.default_loop, handle)
+    UV.signal_init(Rx.default_loop, handle)
     UV.unref(handle)
     UV.signal_start(handle, signal) do
       listener[]

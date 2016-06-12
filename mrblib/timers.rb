@@ -1,4 +1,4 @@
-module Nurb
+module Rx
   # Timer Types
   # -----------
   
@@ -8,7 +8,7 @@ module Nurb
     def initialize(&block)
       raise ArgumentError.new("Block required") unless block_given?
       @handle = UV::Idle.new
-      UV.idle_init(Nurb.default_loop, @handle)
+      UV.idle_init(Rx.default_loop, @handle)
       UV.idle_start(@handle) do
         self.close
         block[]
@@ -22,7 +22,7 @@ module Nurb
     def initialize(delay, &block)
       raise ArgumentError.new("Block required") unless block_given?
       @handle = UV::Timer.new
-      UV.timer_init(Nurb.default_loop, @handle)
+      UV.timer_init(Rx.default_loop, @handle)
       UV.timer_start(@handle, delay, 1) do
         self.close
         block[]
@@ -36,7 +36,7 @@ module Nurb
     def initialize(interval, &block)
       raise ArgumentError.new("Block required") unless block_given?
       @handle = UV::Timer.new
-      UV.timer_init(Nurb.default_loop, @handle)
+      UV.timer_init(Rx.default_loop, @handle)
       UV.timer_start(@handle, interval, interval) do
         block[]
       end

@@ -1,10 +1,10 @@
-Nurb::Spec.new('Nurb::FS Module') do
+Rx::Spec.new('Rx::FS Module') do
   describe 'FS::watchFile(filename, [options], &block)' do
     it "Polls `filename` for changes then calls `block` with the current and previous stat objects" do
       cb_called_correctly = false
-      Nurb.run do
+      Rx.run do
         dir = Dir.tmpdir
-        watch = Nurb::FS.watch_file(dir, interval: 500) do |cur, prev|
+        watch = Rx::FS.watch_file(dir, interval: 500) do |cur, prev|
           cb_called_correctly = cur.kind_of?(UV::Stat) && prev.kind_of?(UV::Stat)
           watch.close
         end
@@ -19,15 +19,15 @@ Nurb::Spec.new('Nurb::FS Module') do
     
     it 'The options argument may be omitted. If provided, it should be a hash' do
       assert_raises(TypeError) do
-        Nurb::FS.watch_file(".", nil) { }
+        Rx::FS.watch_file(".", nil) { }
       end
     end
     
     it '`options[:persistent]` indicates whether the process should continue to run as long as files are being watched' do
       exited_peacefully = true
-      Nurb.run do
+      Rx.run do
         dir = Dir.tmpdir
-        watch = Nurb::FS.watch_file(dir, persistent: false) { }
+        watch = Rx::FS.watch_file(dir, persistent: false) { }
         
         t = set_timeout(2000) do
           exited_peacefully = false

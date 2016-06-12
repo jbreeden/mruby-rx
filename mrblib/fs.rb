@@ -1,4 +1,4 @@
-module Nurb
+module Rx
 module FS
   # TODO: Should always use canonical version for path comparisons
   
@@ -13,7 +13,7 @@ module FS
       @path = path
       @listeners = []
       self.add_listener('change', &block)
-      UV.fs_poll_init(Nurb.default_loop, @handle)
+      UV.fs_poll_init(Rx.default_loop, @handle)
       UV.unref(@handle) unless options[:persistent]
       UV.fs_poll_start(@handle, path, options[:interval]) do |handle, status, prev, cur|
         if status == 0

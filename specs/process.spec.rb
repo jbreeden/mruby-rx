@@ -1,4 +1,4 @@
-Nurb::Spec.new('Nurb::Process Module') do
+Rx::Spec.new('Rx::Process Module') do
 
   blurb <<-EOS
 The specs listed below are implemented, but the tests are not yet written.

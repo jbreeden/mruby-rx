@@ -1,4 +1,4 @@
-Nurb.run do
+Rx.run do
   count = 1
   int = set_interval 1000 do
     puts "Interval hit: ##{count}"

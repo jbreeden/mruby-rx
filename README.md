@@ -1,6 +1,6 @@
-# Nurb
+# Rx
 
-Nurb is intended to provide a nodejs-like API for [mruby-libuv](https://github.com/jbreeden/mruby-libuv).
+Rx is intended to provide a nodejs-like API for [mruby-libuv](https://github.com/jbreeden/mruby-libuv).
 
 ## Features
 
