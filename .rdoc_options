@@ -1,0 +1,22 @@
+--- !ruby/object:RDoc::Options
+encoding: UTF-8
+static_path: []
+rdoc_include:
+- ./mrblib
+charset: UTF-8
+exclude: []
+hyperlink_all: true
+line_numbers: true
+locale:
+locale_dir: locale
+locale_name:
+main_page: README.md
+markup: markdown
+output_decoration: true
+page_dir:
+show_hash: true
+tab_width: 2
+template_stylesheets: []
+title: mruby-rx
+visibility: :private
+webcvs:

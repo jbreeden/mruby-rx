@@ -1,9 +1,10 @@
-# Just-barely-usable spec framework
+# :nodoc: all
 
+# Just-barely-usable spec framework
 class Rx::Spec
   class SkipTest < StandardError
   end
-  
+
   def initialize(label, &block)
     @fixture_label = label
     @test_count = 0
@@ -19,7 +20,7 @@ class Rx::Spec
     self.instance_eval(&block)
     summarize
   end
-  
+
   def write(*lines)
     if lines.empty?
       puts
@@ -31,7 +32,7 @@ class Rx::Spec
       end
     end
   end
-  
+
   def blurb(text)
     write text
     puts
@@ -47,7 +48,7 @@ class Rx::Spec
       end
     end
   end
-  
+
   def unindent
     if @indentation >= 1
       @indentation = @indentation - 1
@@ -55,7 +56,7 @@ class Rx::Spec
       @indentation = 0
     end
   end
-  
+
   def bullet
     if @indentation % 3 == 0
       '-'
@@ -80,7 +81,7 @@ class Rx::Spec
     @current_test_passed = true
     @current_test_pending = false
     exc = nil
-    
+
     begin
       if block
         self.instance_eval(&block)
@@ -93,7 +94,7 @@ class Rx::Spec
       exc = ex
       @current_test_passed = false
     end
-    
+
     tag = ""
     if @current_test_pending
       tag = "[SKIPPED] "

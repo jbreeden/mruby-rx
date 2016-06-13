@@ -1,10 +1,10 @@
 module Rx
   # Timer Types
   # -----------
-  
-  class Immediate
+
+  class Immediate # :nodoc: all
     include Handle
-    
+
     def initialize(&block)
       raise ArgumentError.new("Block required") unless block_given?
       @handle = UV::Idle.new
@@ -15,8 +15,8 @@ module Rx
       end
     end
   end
-  
-  class Timeout
+
+  class Timeout # :nodoc: all
     include Handle
 
     def initialize(delay, &block)
@@ -29,8 +29,8 @@ module Rx
       end
     end
   end
-  
-  class Interval
+
+  class Interval # :nodoc: all
     include Handle
 
     def initialize(interval, &block)
@@ -42,25 +42,25 @@ module Rx
       end
     end
   end
-  
+
   # Public API
   # ----------
-  
+
   def self.set_timeout(delay, &block)
     Timeout.new(delay, &block)
   end
-  
+
   def self.set_interval(interval, &block)
     Interval.new(interval, &block)
   end
-  
+
   def self.set_immediate(&block)
     Immediate.new(&block)
   end
   class << self
     alias next_tick set_immediate
   end
-  
+
   def self.clear_timeout(timeout)
     timeout.close
   end

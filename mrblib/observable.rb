@@ -1,5 +1,11 @@
 module Rx
   class Observable
+    # ----------------------------------------
+    # :section: My Section
+    # This is the section that I wrote.
+    # See it glisten in the noon-day sun.
+    # ----------------------------------------
+
     attr_reader :source, :generator
 
     # Create a new observable with an optional `source` Observable
@@ -18,9 +24,11 @@ module Rx
       generate(Observer.create(_next, error, complete, &block)) # may return disposable
     end
 
+    private
+
     # Invokes the generator proc the observable was created with,
     # passing in the provided `observer` argument, and setting the
-    # context for `self` to this observable.
+    # context for `self` to this observable. (Called by #subscribe)
     def generate(observer)
       self.instance_exec(observer, &@generator) # may return disposable
     end

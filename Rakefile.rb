@@ -9,7 +9,5 @@ end
 
 desc 'Generate the docs'
 task :docs do
-  Dir['specs/*.rb'].each do |f|
-    sh "mruby #{f} > #{f.sub('specs/', 'docs/').sub('.spec.rb', '.md')}"
-  end
+  sh "rdoc mrblib pages README.md"
 end

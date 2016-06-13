@@ -1,6 +1,6 @@
 module Rx
 module Process
-  module Private
+  module Private # :nodoc: all
     def self.translate_signal(signal)
       as_sym, as_str = case signal
       when String
@@ -27,10 +27,16 @@ module Process
     end
   end
 
+  # :args: a, b
+  # Invoke `block` on the next cycle of the event loop
   def self.next_tick(*args, &block)
     Rx.next_tick(*args, &block)
   end
 
+  # Registers the given block as an event handler for `signal`.
+  #
+  # - `signal` may be a Symbol, String, or Fixnum and is case insensitive. (Examples: `'SIGINT'`, `:sigint`, `2`)
+  # - `listener` a block to be invoked on receipt of `signal`.
   def self.on(signal, &listener)
     handle = UV::Signal.new
     signal = Private.translate_signal(signal)
@@ -41,8 +47,12 @@ module Process
     end
   end
 
-  def self.execPath
+  # The path to the currect executable
+  def self.exec_path
     UV.exepath
+  end
+  class << self
+    alias execPath exec_path
   end
 end
 end
