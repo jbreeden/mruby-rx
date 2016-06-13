@@ -1,6 +1,6 @@
-# Rx
+# mruby-rx
 
-Rx is intended to provide a high-level observable-based API for [mruby-libuv](https://github.com/jbreeden/mruby-libuv).
+`mruby-rx` is intended to provide a high-level observable-based API for [mruby-libuv](https://github.com/jbreeden/mruby-libuv).
 
 The observables used here are inspired by the reactive extensions (specifically rxjs 5).
 
