@@ -22,7 +22,7 @@ module Rx
       end
     end
 
-    def initialize(on_next, on_error, on_complete)
+    def initialize(on_next=nil, on_error=nil, on_complete=nil)
       @on_next = on_next
       @on_error = on_error
       @on_complete = on_complete

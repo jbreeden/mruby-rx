@@ -1,7 +1,4 @@
 module Rx
-  # Timer Types
-  # -----------
-
   class Immediate # :nodoc: all
     include Handle
 
@@ -42,9 +39,6 @@ module Rx
       end
     end
   end
-
-  # Public API
-  # ----------
 
   def self.set_timeout(delay, &block)
     Timeout.new(delay, &block)
