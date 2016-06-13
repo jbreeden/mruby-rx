@@ -5,13 +5,9 @@ namespace :mruby do
 
     # Try to find MRuby on path if no MRUBY_HOME set
     if !ENV['MRUBY_HOME']
-      mruby_from_path = `which mruby`.strip
-      if mruby_from_path.length > 0
-        ENV['MRUBY_HOME'] = File.absolute_path(mruby_from_path + '/../..')
-      end
-
       # Maybe MRuby is next to this gem?
-      ENV['MRUBY_HOME'] ||= Dir.pwd + '/../mruby'
+      adjacent_mruby = Dir.pwd + '/../mruby'
+      ENV['MRUBY_HOME'] = adjacent_mruby if File.directory?(adjacent_mruby)
     end
 
     # Still no luck? Raise hell!
