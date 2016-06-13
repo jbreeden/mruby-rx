@@ -1,7 +1,5 @@
-# :nodoc: all
-
 # Just-barely-usable spec framework
-class Rx::Spec
+class Rx::Spec # :nodoc: all
   class SkipTest < StandardError
   end
 

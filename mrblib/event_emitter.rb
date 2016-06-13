@@ -27,15 +27,6 @@
 
 module Rx
 module EventEmitter
-  def self.included(klass)
-    # klass.extend ClassMethods
-    klass.__send__ :include, InstanceMethods
-  end
-
-  def self.apply(object)
-    object.extend InstanceMethods
-  end
-
   def __events # :nodoc:
     @__events ||= []
   end
