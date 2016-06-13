@@ -1,4 +1,4 @@
-# mruby-rx
+# mruby-rx (experimental)
 
 `mruby-rx` is intended to provide a high-level observable-based API for [mruby-libuv](https://github.com/jbreeden/mruby-libuv).
 
