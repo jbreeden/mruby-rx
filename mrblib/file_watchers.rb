@@ -14,8 +14,7 @@ module Rx
         if status == 0
           observer.next(Change.new(prev, cur))
         else
-          err = UV.errno_to_error(status)
-          observer.error(err)
+          observer.error(UV.errno_to_error(status))
         end
       end
 
@@ -31,12 +30,15 @@ module Rx
 
     Observable.new { |observer|
       handle = UV::FSEvent.new
-      UV.fs_event_init(main_loop, handle)
+      UV.fs_event_init(Rx.default_loop, handle)
 
       callback = proc do |handle, path, events, status|
         if status == 0
-          observer.next(events) # bit flags
+          # TODO: Define a class for these events rather than being lazy
+          #       and using hashes. (Maybe just use ostruct?)
+          observer.next({path: path, events: events, status: status})
         else
+          # TODO: ENOENT errors seem to be swallowed
           observer.error(UV.errno_to_error(status))
         end
       end
