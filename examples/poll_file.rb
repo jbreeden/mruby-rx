@@ -4,6 +4,7 @@ Rx.run {
 
   files.each do |f|
     Rx.poll_file(f).subscribe { |change|
+      puts "#{f}: #{change.previous.inspect}" if change.previous
       puts "#{f}: #{change.current.inspect}"
     }
   end

@@ -1,3 +1,5 @@
+require 'mruby/rake/tasks'
+
 desc 'Run the specs'
 task :specs do
   Dir['specs/*.spec.rb'].each do |f|
